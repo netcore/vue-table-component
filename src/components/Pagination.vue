@@ -1,28 +1,32 @@
 <template>
     <nav v-if="shouldShowPagination">
-        <ul class="pagination justify-content-center">
-            <li :class="{ disabled: pagination.currentPage === 1 }">
-                <a :class="{ disabled: pagination.currentPage === 1 }"
-                   @click="pageClicked( pagination.currentPage - 1 )">
-                    <i class="left chevron icon">«</i>
+        <ul class="pagination pagination-split justify-content-center">
+            <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
+                <a class="page-link" href="javascript:;" aria-label="Previous" @click="pageClicked( pagination.currentPage - 1 )">
+                    <span aria-hidden="true">«</span>
+                    <span class="sr-only">Previous</span>
                 </a>
             </li>
             <li v-if="hasFirst" class="page-item" :class="{ active: isActive(1) }">
-                <a class="page-link" @click="pageClicked(1)">1</a>
+                <a class="page-link" href="javascript:;" @click="pageClicked(1)">1</a>
             </li>
-            <li v-if="hasFirstEllipsis"><span class="pagination-ellipsis">&hellip;</span></li>
+            <li v-if="hasFirstEllipsis" class="page-item disabled">
+                <span class="pagination-ellipsis page-link">&hellip;</span>
+            </li>
             <li class="page-item" :class="{ active: isActive(page), disabled: page === '...' }" v-for="page in pages" :key="page">
-                <a class="page-link" @click="pageClicked(page)">{{ page }}</a>
+                <a class="page-link" href="javascript:;" @click="pageClicked(page)">{{ page }}</a>
             </li>
-            <li v-if="hasLastEllipsis"><span class="pagination-ellipsis">&hellip;</span></li>
+            <li v-if="hasLastEllipsis" class="page-item disabled">
+                <span class="pagination-ellipsis page-link">&hellip;</span>
+            </li>
             <li v-if="hasLast" class="page-item"
                 :class="{ active: isActive(this.pagination.totalPages) }">
-                <a class="page-link" @click="pageClicked(pagination.totalPages)">{{pagination.totalPages}}</a>
+                <a class="page-link" href="javascript:;" @click="pageClicked(pagination.totalPages)">{{pagination.totalPages}}</a>
             </li>
-            <li>
-                <a :class="{ disabled: pagination.currentPage === pagination.totalPages }"
-                   @click="pageClicked( pagination.currentPage + 1 )">
-                    <i class="right chevron icon">»</i>
+            <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
+                <a class="page-link" href="javascript:;" aria-label="Next" @click="pageClicked( pagination.currentPage + 1 )">
+                    <span aria-hidden="true">»</span>
+                    <span class="sr-only">Next</span>
                 </a>
             </li>
         </ul>
